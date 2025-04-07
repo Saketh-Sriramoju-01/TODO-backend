@@ -1,9 +1,6 @@
 const mysql = require("mysql");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const redis = require("redis");
-const client = redis.createClient();
-
 
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
@@ -67,7 +64,6 @@ const logout = (req, res) => {
   }
 
   // Store token in Redis with expiration
-  client.setEx(token, 3600, "blacklisted"); // Expires after 1 hour
 
   res.json({ message: "Logged out successfully" });
 };
